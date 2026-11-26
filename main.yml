@@ -1,0 +1,35 @@
+name: Build iOS IPA
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  ipa:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate Xcode project
+        run: brew install xcodegen && xcodegen generate
+      - name: Build (unsigned)
+        run: |
+          xcodebuild -project PlayGTA.xcodeproj -scheme PlayGTA -configuration Release \
+            -sdk iphoneos -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+      - name: Package IPA
+        run: |
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/PlayGTA.app Payload/
+          zip -qr PlayGTA.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PlayGTA-ipa
+          path: PlayGTA.ipa
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "ios-${GITHUB_RUN_NUMBER}" PlayGTA.ipa \
+            --title "PlayGTA build ${GITHUB_RUN_NUMBER}" \
+            --notes "Unsigned IPA. Install with Sideloadly or AltStore."
