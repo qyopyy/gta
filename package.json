@@ -1,0 +1,43 @@
+{
+  "name": "playgta",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Let internet visitors take turns controlling a game console from the browser. A gtalab project.",
+  "homepage": "https://gtalab.dev",
+  "license": "MIT",
+  "author": "gtalab (https://gtalab.dev)",
+  "type": "module",
+  "scripts": {
+    "start": "bun src/main.ts",
+    "dev": "bun --watch src/main.ts",
+    "test": "bun test ./test",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "check": "bun run typecheck && bun run lint && bun run format:check && bun run test",
+    "video": "vendor/mediamtx/mediamtx mediamtx/mediamtx.yml",
+    "overlay": "bun scripts/kick-overlay.ts",
+    "admin": "bun scripts/admin.ts",
+    "chiaki:build": "scripts/build-chiaki.sh",
+    "chiaki:test-netinput": "scripts/test-chiaki-netinput.sh",
+    "chiaki:test-stream-out": "scripts/test-chiaki-stream-out.sh"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "1.1.1",
+    "ws": "8.23.0"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.5",
+    "@types/ws": "8.18.2",
+    "oxfmt": "0.79.0",
+    "oxlint": "1.94.0",
+    "oxlint-tsgolint": "7.0.2008",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "bun": ">=1.4"
+  },
+  "packageManager": "bun@1.4.5"
+}
