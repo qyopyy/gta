@@ -1,0 +1,30 @@
+name: PlayGTA
+options:
+  bundleIdPrefix: com.audia
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  PlayGTA:
+    type: application
+    platform: iOS
+    sources: [PlayGTA]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.audia.playgta
+        MARKETING_VERSION: 1.0.0
+        CURRENT_PROJECT_VERSION: 1
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_VERSION: 5.0
+    info:
+      path: PlayGTA/Info.plist
+      properties:
+        CFBundleDisplayName: PlayGTA
+        UILaunchScreen: {}
+        UIRequiresFullScreen: true
+        UIStatusBarHidden: true
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        NSLocalNetworkUsageDescription: Connects to your PlayGTA server on your home network.
